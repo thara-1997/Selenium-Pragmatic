@@ -1,5 +1,6 @@
 package com.pragmatic.selenium;
 
+import net.datafaker.Faker;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -12,14 +13,14 @@ import org.testng.annotations.Test;
 public class CheckoutFlowTest {
     WebDriver driver;
     @BeforeClass
-    public void beforeMethod(){
+    public void beforeClass(){
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.get("https://www.saucedemo.com/");
     }
 
-    @Test(priority = 1)
-    public void testLogin(){
+    @BeforeMethod
+    public void beforeMethod(){
         driver.findElement(By.id("user-name")).sendKeys("standard_user");
         driver.findElement(By.id("password")).sendKeys("secret_sauce");
         driver.findElement(By.id("login-button")).click();
@@ -29,7 +30,7 @@ public class CheckoutFlowTest {
         Assert.assertEquals(errorMessage,"Products","Product text not meet");
     }
 
-    @Test(priority = 2)
+    @Test(priority = 1)
     public void testCheckout(){
         WebElement backpackLink = driver.findElement(By.id("item_4_title_link"));
         backpackLink.click();
@@ -49,8 +50,10 @@ public class CheckoutFlowTest {
         Assert.assertEquals(cartTitle,"Your Cart", "Page text is not matching");
 
     }
-    @Test(priority = 3)
+    @Test(priority = 2)
     public void testVerifyCheckout(){
+        Faker faker = new Faker();
+
         WebElement checkoutBtn = driver.findElement(By.cssSelector("#checkout"));
         checkoutBtn.click();
 
@@ -58,11 +61,11 @@ public class CheckoutFlowTest {
         Assert.assertEquals(title, "Checkout: Your Information", "Title is not matching");
 
         WebElement firstNameField = driver.findElement(By.id("first-name"));
-        firstNameField.sendKeys("Thathsarani");
+        firstNameField.sendKeys(faker.name().firstName());
         WebElement lastNameField = driver.findElement(By.id("last-name"));
-        lastNameField.sendKeys("Nayanathara");
+        lastNameField.sendKeys(faker.name().lastName());
         WebElement postalCodeField = driver.findElement(By.id("postal-code"));
-        postalCodeField.sendKeys("82100");
+        postalCodeField.sendKeys(faker.address().postcode());
 
         WebElement buttonContinue = driver.findElement(By.id("continue"));
         buttonContinue.click();
