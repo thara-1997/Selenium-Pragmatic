@@ -21,7 +21,7 @@ public class MethodTest {
     }
 
     @Test
-    public void testCurrentURL(){
+    public void testTitle(){
         String baseUrl = "https://opensource-demo.orangehrmlive.com/";
         driver.get(baseUrl);
         Assert.assertEquals(driver.getTitle(),"OrangeHRM", "Title is incorrect");

@@ -45,4 +45,25 @@ public class NavigationAndLogOutTest {
         Assert.assertTrue(driver.getCurrentUrl().startsWith("https://www.saucedemo.com/"));
     }
 
+    @Test
+    public void testVerifyAllItems() {
+        driver.findElement(By.xpath("//button[@id='react-burger-menu-btn']")).click();
+        WebElement allItems = driver.findElement(By.xpath("//a[@id='inventory_sidebar_link']"));
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.elementToBeClickable(allItems));
+        allItems.click();
+        Assert.assertTrue(driver.getCurrentUrl().startsWith("https://www.saucedemo.com/inventory.html"));
+
+    }
+
+    @Test
+    public void testVerifyAboutOption() {
+        driver.findElement(By.xpath("//button[@id='react-burger-menu-btn']")).click();
+        WebElement about = driver.findElement(By.xpath("//a[@id='about_sidebar_link']"));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.elementToBeClickable(about));
+        about.click();
+        Assert.assertTrue(driver.getCurrentUrl().startsWith("https://saucelabs.com/"));
+    }
 }
