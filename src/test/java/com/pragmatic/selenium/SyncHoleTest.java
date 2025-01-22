@@ -33,7 +33,7 @@ public class SyncHoleTest {
          driver.quit();
      }
      @Test
-     public void testClickingAboutLinkWithWaitForElementTobeClickableWithWebelement(){
+     public void testClickingAboutLinkWithWaitForElementTobeClickableWithWebElement(){
         driver.findElement(By.cssSelector("div#collapsable")).click();
         WebElement aboutLink = driver.findElement(By.id("aboutlink"));
 
