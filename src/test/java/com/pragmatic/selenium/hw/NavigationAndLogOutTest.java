@@ -14,8 +14,9 @@ import java.time.Duration;
 
 public class NavigationAndLogOutTest {
     WebDriver driver;
+
     @BeforeMethod
-    public void openTestLink(){
+    public void openTestLink() {
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.get("https://www.saucedemo.com/");
@@ -23,8 +24,8 @@ public class NavigationAndLogOutTest {
         driver.findElement(By.id("password")).sendKeys("secret_sauce");
         driver.findElement(By.id("login-button")).click();
 
-        String errorMessage=driver.findElement(By.cssSelector("[data-test='title']")).getText();
-        Assert.assertEquals(errorMessage,"Products","Product text not meet");
+        String errorMessage = driver.findElement(By.cssSelector("[data-test='title']")).getText();
+        Assert.assertEquals(errorMessage, "Products", "Product text not meet");
     }
 
     @Test
@@ -35,7 +36,7 @@ public class NavigationAndLogOutTest {
     }
 
     @Test
-    public void testVerifyLogoutFunctionality() throws InterruptedException {
+    public void testVerifyLogoutFunctionality()  {
         driver.findElement(By.xpath("//button[@id='react-burger-menu-btn']")).click();
         WebElement logoutButton = driver.findElement(By.id("logout_sidebar_link"));
 
