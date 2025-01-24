@@ -67,4 +67,17 @@ public class ProductListPage {
          }
          Assert.assertEquals(driver.findElement(By.xpath("//span[@class='shopping_cart_badge']")).getText(),"6", "Cart Item count is not matching");
     }
+
+    @Test
+    public void testRemoveButtonFunctionality() {
+        List<WebElement> cartButtons = driver.findElements(By.xpath("//button[@class='btn btn_primary btn_small btn_inventory ']"));
+        for (WebElement addToCartButton: cartButtons){
+            addToCartButton.click();
+        }
+        List<WebElement> removeButtons = driver.findElements(By.xpath("//button[@class='btn btn_secondary btn_small btn_inventory ']"));
+        for (WebElement removeBtn: removeButtons){
+            removeBtn.click();
+        }
+
+    }
 }
