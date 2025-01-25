@@ -20,12 +20,13 @@ public class NavigationAndLogOutTest {
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.get("https://www.saucedemo.com/");
+        loginFunctionality();
+
+    }
+    public void loginFunctionality(){
         driver.findElement(By.id("user-name")).sendKeys("standard_user");
         driver.findElement(By.id("password")).sendKeys("secret_sauce");
         driver.findElement(By.id("login-button")).click();
-
-        String errorMessage = driver.findElement(By.cssSelector("[data-test='title']")).getText();
-        Assert.assertEquals(errorMessage, "Products", "Product text not meet");
     }
 
     @Test

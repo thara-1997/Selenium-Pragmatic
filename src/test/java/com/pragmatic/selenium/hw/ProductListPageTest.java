@@ -10,13 +10,16 @@ import org.testng.annotations.Test;
 
 import java.util.List;
 
-public class ProductListPage {
+public class ProductListPageTest {
     WebDriver driver;
     @BeforeMethod
-    public void openTestLink(){
+    public void beforeMethod(){
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.get("https://www.saucedemo.com/");
+        loginFunction();
+    }
+    public void loginFunction(){
         driver.findElement(By.id("user-name")).sendKeys("standard_user");
         driver.findElement(By.id("password")).sendKeys("secret_sauce");
         driver.findElement(By.id("login-button")).click();

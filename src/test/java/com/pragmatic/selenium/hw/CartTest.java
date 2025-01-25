@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -18,16 +19,33 @@ public class CartTest {
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.get("https://www.saucedemo.com/");
+        loginFunction();
+
+
+    }
+    @AfterMethod
+    public void afterMethod(){
+        driver.quit();
+    }
+    public void loginFunction(){
         driver.findElement(By.id("user-name")).sendKeys("standard_user");
         driver.findElement(By.id("password")).sendKeys("secret_sauce");
         driver.findElement(By.id("login-button")).click();
+    }
 
-        String errorMessage=driver.findElement(By.cssSelector("[data-test='title']")).getText();
-        Assert.assertEquals(errorMessage,"Products","Product text not meet");
+    public void addingItemsToCart(){
+        driver.findElement(By.xpath("//button[@id='add-to-cart-sauce-labs-backpack']")).click();
+        driver.findElement(By.xpath("//button[@id='add-to-cart-sauce-labs-bike-light']")).click();
+        driver.findElement(By.xpath("//a[@class='shopping_cart_link']")).click();
     }
 
     @Test
     public void testVerifyCorrectProductDisplaying() {
+
+        //the method that use to locate elements when using complex xpath
+        //driver.findElement(new ByText(("Sauce Labs Backpack"))).click();
+        // when using partial text
+        //driver.findElement(new ByPartialText("Sause")).click();
         driver.findElement(By.xpath("//button[@id='add-to-cart-sauce-labs-backpack']")).click();
         driver.findElement(By.xpath("//a[@class='shopping_cart_link']")).click();
         String itemDescription = driver.findElement(By.xpath("//div[@class='inventory_item_desc']")).getText();
@@ -41,9 +59,7 @@ public class CartTest {
 
     @Test
     public void testVerifyMultipleProductsInCart() {
-        driver.findElement(By.xpath("//button[@id='add-to-cart-sauce-labs-backpack']")).click();
-        driver.findElement(By.xpath("//button[@id='add-to-cart-sauce-labs-bike-light']")).click();
-        driver.findElement(By.xpath("//a[@class='shopping_cart_link']")).click();
+        addingItemsToCart();
 
         List<WebElement> cartItems = driver.findElements(By.xpath("//div[@class='inventory_item_name']"));
 
@@ -60,9 +76,7 @@ public class CartTest {
 
     @Test
     public void testVerifyRemoveCartItemFunctionality(){
-        driver.findElement(By.xpath("//button[@id='add-to-cart-sauce-labs-backpack']")).click();
-        driver.findElement(By.xpath("//button[@id='add-to-cart-sauce-labs-bike-light']")).click();
-        driver.findElement(By.xpath("//a[@class='shopping_cart_link']")).click();
+        addingItemsToCart();
         driver.findElement(By.xpath("//button[@id='remove-sauce-labs-backpack']")).click();
 
         List<WebElement> cartListItems = driver.findElements(By.xpath("//div[@class='inventory_item_name']"));
@@ -73,18 +87,14 @@ public class CartTest {
 
     @Test
     public void testVerifyContinueShoppingButtonFunctionality() {
-        driver.findElement(By.xpath("//button[@id='add-to-cart-sauce-labs-backpack']")).click();
-        driver.findElement(By.xpath("//button[@id='add-to-cart-sauce-labs-bike-light']")).click();
-        driver.findElement(By.xpath("//a[@class='shopping_cart_link']")).click();
+        addingItemsToCart();
         driver.findElement(By.xpath("//button[@id='continue-shopping']")).click();
         Assert.assertTrue(driver.getCurrentUrl().startsWith("https://www.saucedemo.com/inventory.html"));
     }
 
     @Test
     public void testVerifyCheckoutFunctionality() {
-        driver.findElement(By.xpath("//button[@id='add-to-cart-sauce-labs-backpack']")).click();
-        driver.findElement(By.xpath("//button[@id='add-to-cart-sauce-labs-bike-light']")).click();
-        driver.findElement(By.xpath("//a[@class='shopping_cart_link']")).click();
+        addingItemsToCart();
         driver.findElement(By.xpath("//button[@id='checkout']")).click();
         Assert.assertTrue(driver.getCurrentUrl().startsWith("https://www.saucedemo.com/checkout-step-one.html"));
     }

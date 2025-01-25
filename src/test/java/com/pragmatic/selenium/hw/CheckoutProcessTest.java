@@ -12,24 +12,38 @@ import org.testng.annotations.Test;
 import java.util.Arrays;
 import java.util.List;
 
-public class CheckoutProcess {
+public class CheckoutProcessTest {
     WebDriver driver;
     @BeforeMethod
     public void openTestLink(){
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.get("https://www.saucedemo.com/");
+        loginFunction();
+    }
+    public void loginFunction(){
         driver.findElement(By.id("user-name")).sendKeys("standard_user");
         driver.findElement(By.id("password")).sendKeys("secret_sauce");
         driver.findElement(By.id("login-button")).click();
     }
 
-    @Test(dataProvider = "information-details")
-    public void testVerifyInvalidCheckoutInformationFunctionality(String firstname, String lastName, String postalCode, String expectedMessage) {
+    public void addingItemsToCart(){
         driver.findElement(By.xpath("//button[@id='add-to-cart-sauce-labs-backpack']")).click();
         driver.findElement(By.xpath("//button[@id='add-to-cart-sauce-labs-bike-light']")).click();
         driver.findElement(By.xpath("//a[@class='shopping_cart_link']")).click();
         driver.findElement(By.xpath("//button[@id='checkout']")).click();
+    }
+
+    public void addCheckOutDetails(){
+        driver.findElement(By.xpath("//input[@id='first-name']")).sendKeys("Thathsarani");
+        driver.findElement(By.xpath("//input[@id='last-name']")).sendKeys("Nayanathara");
+        driver.findElement(By.xpath("//input[@id='postal-code']")).sendKeys("12345");
+        driver.findElement(By.xpath("//input[@id='continue']")).click();
+    }
+
+    @Test(dataProvider = "information-details", dataProviderClass = DataProviderCheckoutProcess.class)
+    public void testVerifyInvalidCheckoutInformationFunctionality(String firstname, String lastName, String postalCode, String expectedMessage) {
+       addingItemsToCart();
 
         driver.findElement(By.xpath("//input[@id='first-name']")).sendKeys(firstname);
         driver.findElement(By.xpath("//input[@id='last-name']")).sendKeys(lastName);
@@ -40,45 +54,20 @@ public class CheckoutProcess {
         Assert.assertEquals(errorMessage,expectedMessage,"Error message is incorrect");
     }
 
-       @DataProvider(name ="information-details")
-   public Object[][] userCredentials(){
-        return new Object[][]{
-                {"","","","Error: First Name is required"} ,
-                {"Thathsarani", "","","Error: Last Name is required"},
-                {"Thathsarani","Sudusinghe","","Error: Postal Code is required"},
-                {"Thathsarani", "", "82100", "Error: Last Name is required"}
 
-       };
-   }
 
     @Test
     public void testVerifyValidCheckoutInformationFunctionality() {
-        driver.findElement(By.xpath("//button[@id='add-to-cart-sauce-labs-backpack']")).click();
-        driver.findElement(By.xpath("//button[@id='add-to-cart-sauce-labs-bike-light']")).click();
-        driver.findElement(By.xpath("//a[@class='shopping_cart_link']")).click();
-        driver.findElement(By.xpath("//button[@id='checkout']")).click();
-
-        driver.findElement(By.xpath("//input[@id='first-name']")).sendKeys("Thathsarani");
-        driver.findElement(By.xpath("//input[@id='last-name']")).sendKeys("Nayanathara");
-        driver.findElement(By.xpath("//input[@id='postal-code']")).sendKeys("12345");
-        driver.findElement(By.xpath("//input[@id='continue']")).click();
-
+        addingItemsToCart();
+        addCheckOutDetails();
         Assert.assertTrue(driver.getCurrentUrl().startsWith("https://www.saucedemo.com/checkout-step-two.html"));
         
     }
 
     @Test
     public void testVerifyOrderSummaryPage() {
-        driver.findElement(By.xpath("//button[@id='add-to-cart-sauce-labs-backpack']")).click();
-        driver.findElement(By.xpath("//button[@id='add-to-cart-sauce-labs-bike-light']")).click();
-        driver.findElement(By.xpath("//a[@class='shopping_cart_link']")).click();
-        driver.findElement(By.xpath("//button[@id='checkout']")).click();
-
-        driver.findElement(By.xpath("//input[@id='first-name']")).sendKeys("Thathsarani");
-        driver.findElement(By.xpath("//input[@id='last-name']")).sendKeys("Nayanathara");
-        driver.findElement(By.xpath("//input[@id='postal-code']")).sendKeys("12345");
-        driver.findElement(By.xpath("//input[@id='continue']")).click();
-
+        addingItemsToCart();
+        addCheckOutDetails();
         List<WebElement> cartItems = driver.findElements(By.xpath("//div[@class='inventory_item_name']"));
 
         List<String> expectedCartItems = Arrays.asList("Sauce Labs Backpack","Sauce Labs Bike Light");
@@ -97,15 +86,8 @@ public class CheckoutProcess {
 
     @Test
     public void testVerifyFinishButtonFunctionality() {
-        driver.findElement(By.xpath("//button[@id='add-to-cart-sauce-labs-backpack']")).click();
-        driver.findElement(By.xpath("//button[@id='add-to-cart-sauce-labs-bike-light']")).click();
-        driver.findElement(By.xpath("//a[@class='shopping_cart_link']")).click();
-        driver.findElement(By.xpath("//button[@id='checkout']")).click();
-
-        driver.findElement(By.xpath("//input[@id='first-name']")).sendKeys("Thathsarani");
-        driver.findElement(By.xpath("//input[@id='last-name']")).sendKeys("Nayanathara");
-        driver.findElement(By.xpath("//input[@id='postal-code']")).sendKeys("12345");
-        driver.findElement(By.xpath("//input[@id='continue']")).click();
+        addingItemsToCart();
+        addCheckOutDetails();
         driver.findElement(By.xpath("//button[@id='finish']")).click();
 
         Assert.assertEquals(driver.findElement(By.xpath("//h2[normalize-space()='Thank you for your order!']")).getText(),"Thank you for your order!");
@@ -113,11 +95,7 @@ public class CheckoutProcess {
 
     @Test
     public void testVerifyCancelButtonFunctionality() {
-        driver.findElement(By.xpath("//button[@id='add-to-cart-sauce-labs-backpack']")).click();
-        driver.findElement(By.xpath("//button[@id='add-to-cart-sauce-labs-bike-light']")).click();
-        driver.findElement(By.xpath("//a[@class='shopping_cart_link']")).click();
-        driver.findElement(By.xpath("//button[@id='checkout']")).click();
-
+        addingItemsToCart();
 
         driver.findElement(By.xpath("//button[@id='cancel']")).click();
         Assert.assertTrue(driver.getCurrentUrl().startsWith("https://www.saucedemo.com/cart.html"));
