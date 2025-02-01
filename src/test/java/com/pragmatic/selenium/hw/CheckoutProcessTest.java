@@ -35,9 +35,10 @@ public class CheckoutProcessTest {
     }
 
     public void addCheckOutDetails(){
-        driver.findElement(By.xpath("//input[@id='first-name']")).sendKeys("Thathsarani");
-        driver.findElement(By.xpath("//input[@id='last-name']")).sendKeys("Nayanathara");
-        driver.findElement(By.xpath("//input[@id='postal-code']")).sendKeys("12345");
+        Person person= new Person();
+        driver.findElement(By.xpath("//input[@id='first-name']")).sendKeys(person.getFirstName());
+        driver.findElement(By.xpath("//input[@id='last-name']")).sendKeys(person.getLastName());
+        driver.findElement(By.xpath("//input[@id='postal-code']")).sendKeys(person.getPostalCode());
         driver.findElement(By.xpath("//input[@id='continue']")).click();
     }
 
