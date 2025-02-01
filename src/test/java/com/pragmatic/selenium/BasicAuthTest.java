@@ -26,5 +26,6 @@ public class BasicAuthTest {
 
         String pageSource = driver.getPageSource();
         Assert.assertTrue(pageSource.contains("Congratulations! You must have the proper credentials."));
+
     }
 }
