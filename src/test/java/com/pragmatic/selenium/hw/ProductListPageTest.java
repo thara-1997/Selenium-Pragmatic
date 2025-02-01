@@ -58,7 +58,7 @@ public class ProductListPageTest {
     public void testVerifyProductPage() {
         driver.findElement(By.xpath("//div[normalize-space()='Sauce Labs Backpack']")).click();
         Assert.assertEquals(driver.findElement(By.xpath("//div[normalize-space()='Sauce Labs Backpack']")).getText(),
-                "Sauce Labs Backpack", "Product method is not matching");
+                "Sauce Labs Backpack", "Product name is not matching");
         Assert.assertEquals(driver.findElement(By.xpath("//div[@class='inventory_details_price']")).getText(),"$29.99");
     }
 

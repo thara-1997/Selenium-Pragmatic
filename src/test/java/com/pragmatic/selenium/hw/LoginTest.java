@@ -80,4 +80,5 @@ WebDriver driver;
         String placeholderPassword = driver.findElement(By.id("password")).getAttribute("placeholder");
         Assert.assertEquals(placeholderPassword, "Password", "Placeholder value is not matching");
     }
+
 }

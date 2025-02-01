@@ -25,7 +25,7 @@ public class CartTest {
     }
     @AfterMethod
     public void afterMethod(){
-        driver.quit();
+        //driver.quit();
     }
     public void loginFunction(){
         driver.findElement(By.id("user-name")).sendKeys("standard_user");
