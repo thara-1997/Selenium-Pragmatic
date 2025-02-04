@@ -1,4 +1,4 @@
-package com.pragmatic.selenium.hw;
+package com.pragmatic.selenium.homework;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.SearchContext;

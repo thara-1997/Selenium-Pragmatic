@@ -1,4 +1,4 @@
-package com.pragmatic.selenium.hw;
+package com.pragmatic.selenium.homework;
 
 import org.testng.annotations.DataProvider;
 

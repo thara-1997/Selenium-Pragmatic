@@ -1,4 +1,4 @@
-package com.pragmatic.selenium.PageFactoryPages;
+package com.pragmatic.selenium.pageFactoryPages;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;

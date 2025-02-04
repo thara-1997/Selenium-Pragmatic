@@ -1,8 +1,7 @@
 package com.pragmatic.selenium.tests;
 
-import com.pragmatic.selenium.hw.DataProviderCheckoutProcess;
+import com.pragmatic.selenium.homework.DataProviderCheckoutProcess;
 import com.pragmatic.selenium.pages.*;
-import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 

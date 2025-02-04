@@ -1,8 +1,8 @@
-package com.pragmatic.selenium.PageFactoryTests;
+package com.pragmatic.selenium.pageFactoryTests;
 
 import com.pragmatic.selenium.DataProviderSauceLabs;
-import com.pragmatic.selenium.PageFactoryPages.ProductListWithPageFactoryPage;
-import com.pragmatic.selenium.PageFactoryPages.SauceLoginWithPageFactoryPage;
+import com.pragmatic.selenium.pageFactoryPages.ProductListWithPageFactoryPage;
+import com.pragmatic.selenium.pageFactoryPages.SauceLoginWithPageFactoryPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
