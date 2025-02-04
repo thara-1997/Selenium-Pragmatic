@@ -10,44 +10,54 @@ import java.util.Arrays;
 import java.util.List;
 
 public class SauceCheckoutTest extends BaseClass {
-    @Test(dataProvider = "information-details", dataProviderClass = DataProviderCheckoutProcess.class)
-    public void testVerifyInvalidCheckoutInformationFunctionality(String firstname, String lastName, String postalCode, String expectedMessage) {
-        SauceCheckoutPage sauceCheckoutPage = new SauceCheckoutPage(driver);
+
+    public void addProducts(){
         SauceProductListPage sauceProductListPage = new SauceProductListPage(driver);
-        SauceCartPage sauceCartPage = new SauceCartPage(driver);
         sauceProductListPage.addSauceLabsBackPack();
         sauceProductListPage.addSauceLabsBikeLight();
         sauceProductListPage.clickCart();
+
+    }
+    public void clickCheckoutBtn(){
+        SauceCartPage sauceCartPage = new SauceCartPage(driver);
         sauceCartPage.clickCheckout();
+    }
+
+    public void enterCheckoutDetails(){
+        SauceCheckoutPage sauceCheckoutPage = new SauceCheckoutPage(driver);
+        sauceCheckoutPage.typeFirstName("firstname").typeLastName("lastName").typePostalCode("postalCode").clickContinueBtn();
+    }
+
+
+    @Test(dataProvider = "information-details", dataProviderClass = DataProviderCheckoutProcess.class)
+    public void testVerifyInvalidCheckoutInformationFunctionality(String firstname, String lastName, String postalCode, String expectedMessage) {
+        addProducts();
+        clickCheckoutBtn();
+
+        SauceCheckoutPage sauceCheckoutPage = new SauceCheckoutPage(driver);
         sauceCheckoutPage.typeFirstName(firstname).typeLastName(lastName).typePostalCode(postalCode).clickContinueBtn();
         Assert.assertEquals(sauceCheckoutPage.getErrorMsg(),expectedMessage,"Error message is incorrect");
     }
     @Test
     public void testVerifyValidCheckoutInformationFunctionality() {
-       SauceCheckoutPage sauceCheckoutPage = new SauceCheckoutPage(driver);
-       SauceProductListPage sauceProductListPage = new SauceProductListPage(driver);
-       SauceCartPage sauceCartPage = new SauceCartPage(driver);
-       sauceProductListPage.addSauceLabsBackPack();
-       sauceProductListPage.addSauceLabsBikeLight();
-       sauceProductListPage.clickCart();
-       sauceCartPage.clickCheckout();
-       sauceCheckoutPage.typeFirstName("firstname").typeLastName("lastName").typePostalCode("postalCode").clickContinueBtn();
+       addProducts();
+       clickCheckoutBtn();
+       enterCheckoutDetails();
+
        Assert.assertTrue(driver.getCurrentUrl().startsWith("https://www.saucedemo.com/checkout-step-two.html"));
 
     }
 
     @Test
     public void testVerifyOrderSummaryPage() {
-        SauceCheckoutPage sauceCheckoutPage = new SauceCheckoutPage(driver);
-        SauceProductListPage sauceProductListPage = new SauceProductListPage(driver);
-        SauceCartPage sauceCartPage = new SauceCartPage(driver);
+
+        addProducts();
+        clickCheckoutBtn();
+        enterCheckoutDetails();
+
         SauceCheckoutOverviewPage sauceCheckoutOverviewPage = new SauceCheckoutOverviewPage(driver);
-        sauceProductListPage.addSauceLabsBackPack();
-        sauceProductListPage.addSauceLabsBikeLight();
-        sauceProductListPage.clickCart();
-        sauceCartPage.clickCheckout();
-        sauceCheckoutPage.typeFirstName("firstname").typeLastName("lastName").typePostalCode("postalCode").clickContinueBtn();
         List<String> expectedCartItems = Arrays.asList("Sauce Labs Backpack","Sauce Labs Bike Light");
+
         for (int i =0; i< sauceCheckoutOverviewPage.getCartItemCount(); i++){
             String cartItemName = sauceCheckoutOverviewPage.getCartItems().get(i).getText();
             String expectedProductName = expectedCartItems.get(i);
@@ -58,28 +68,22 @@ public class SauceCheckoutTest extends BaseClass {
 
     @Test
     public void testVerifyFinishButtonFunctionality() {
-        SauceCheckoutPage sauceCheckoutPage = new SauceCheckoutPage(driver);
-        SauceProductListPage sauceProductListPage = new SauceProductListPage(driver);
-        SauceCartPage sauceCartPage = new SauceCartPage(driver);
+        addProducts();
+        clickCheckoutBtn();
+        enterCheckoutDetails();
+
         SauceCheckoutOverviewPage sauceCheckoutOverviewPage = new SauceCheckoutOverviewPage(driver);
-        SauceFinishMessagePage sauceFinishMessagePage = new SauceFinishMessagePage(driver);
-        sauceProductListPage.addSauceLabsBackPack();
-        sauceProductListPage.addSauceLabsBikeLight();
-        sauceProductListPage.clickCart();
-        sauceCartPage.clickCheckout();
-        sauceCheckoutPage.typeFirstName("firstname").typeLastName("lastName").typePostalCode("postalCode").clickContinueBtn();
         sauceCheckoutOverviewPage.clickFinish();
+
+        SauceFinishMessagePage sauceFinishMessagePage = new SauceFinishMessagePage(driver);
         Assert.assertEquals(sauceFinishMessagePage.getFinishMsg(),"Thank you for your order!","Thank you for your order!");
     }
     @Test
     public void testVerifyCancelButtonFunctionality() {
+        addProducts();
+        clickCheckoutBtn();
+
         SauceCheckoutPage sauceCheckoutPage = new SauceCheckoutPage(driver);
-        SauceProductListPage sauceProductListPage = new SauceProductListPage(driver);
-        SauceCartPage sauceCartPage = new SauceCartPage(driver);
-        sauceProductListPage.addSauceLabsBackPack();
-        sauceProductListPage.addSauceLabsBikeLight();
-        sauceProductListPage.clickCart();
-        sauceCartPage.clickCheckout();
         sauceCheckoutPage.clickCancelBtn();
         Assert.assertTrue(driver.getCurrentUrl().startsWith("https://www.saucedemo.com/cart.html"));
     }

@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -82,5 +83,68 @@ public class ProductListPageTest {
             removeBtn.click();
         }
 
+    }
+    public void selectFilter(String value){
+        WebElement selectFilter = driver.findElement(By.xpath("//select[@class='product_sort_container']"));
+        Select select = new Select(selectFilter);
+        select.selectByValue(value);
+    }
+    @Test
+    public void testFilterProductsAtoZ(){
+        selectFilter("az");
+
+         List<WebElement> productItems= driver.findElements(By.xpath("//div[@class = 'inventory_item']"));
+         String previousProduct = "";
+         for (WebElement product: productItems){
+             String currentProduct = product.getText();
+             Assert.assertTrue(currentProduct.compareTo(previousProduct)>=0, "Products are not sorted in ascending order (A to Z). Current: " +currentProduct+ "Previous"
+             +previousProduct);
+             previousProduct = currentProduct;
+         }
+    }
+
+    @Test
+    public void testFilterProductsZtoA(){
+        selectFilter("za");
+
+        List<WebElement> productItems= driver.findElements(By.xpath("//div[@class = 'inventory_item']"));
+        String previousProduct = productItems.get(0).getText();
+        for (WebElement product: productItems){
+            String currentProduct = product.getText();
+            Assert.assertTrue(currentProduct.compareTo(previousProduct)<=0, "Products are not sorted in descending order (Z to A). Current: " +currentProduct+ "Previous"
+                    +previousProduct);
+            previousProduct = currentProduct;
+        }
+    }
+
+    @Test
+    public void testFilterPriceLowToHigh(){
+        selectFilter("lohi");
+
+        List<WebElement> priceList = driver.findElements(By.xpath("//div[@class = 'inventory_item_price']"));
+        double previousValue = 0.0;
+
+        for (WebElement price: priceList){
+            String priceText= price.getText().replace("$", "").trim();
+            double currentValue = Double.parseDouble(priceText);
+            Assert.assertTrue(currentValue>=previousValue, "Products are not sorted in ascending order (low to high) Current Price: " + currentValue + " Previous Price: " + previousValue);
+            previousValue = currentValue;
+        }
+    }
+
+    @Test
+    public void testFilterPriceHighToLow(){
+        selectFilter("hilo");
+
+        List<WebElement> priceList = driver.findElements(By.xpath("//div[@class = 'inventory_item_price']"));
+        double previousValue = Double.MAX_VALUE;
+
+        for (WebElement price: priceList){
+            String priceText = price.getText().replace("$","").trim();
+            double currentValue = Double.parseDouble(priceText);
+            Assert.assertTrue(currentValue<=previousValue, "Products are not sorted in descending order (high to low). Current Price: " +currentValue+
+                    "previousValue: " +previousValue);
+            previousValue = currentValue;
+        }
     }
 }
