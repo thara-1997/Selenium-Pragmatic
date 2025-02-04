@@ -7,18 +7,21 @@ import org.openqa.selenium.support.PageFactory;
 
 public class SauceLoginWithPageFactoryPage {
 
+    private final WebDriver driver;
     @FindBy(id = "user-name")
-    WebElement txtUserName;
+    private WebElement txtUserName;
+    @FindBy(id = "password")
+    private WebElement txtPassword;
+    @FindBy(id = "login-button")
+    private WebElement btnLogin;
+    @FindBy(css = "h3[data-test='error']")
+    private WebElement txtError;
+
+    @FindBy(id = "user-name")
+    private WebElement userNamePlaceholder;
 
     @FindBy(id = "password")
-    WebElement txtPassword;
-
-    @FindBy(id = "login-button")
-    WebElement btnLogin;
-
-    @FindBy(css = "h3[data-test='error']")
-    WebElement txtError;
-    private final WebDriver driver;
+    private WebElement passwordPlaceholder;
     public SauceLoginWithPageFactoryPage(WebDriver driver){
 
         this.driver = driver;
@@ -38,5 +41,12 @@ public class SauceLoginWithPageFactoryPage {
     }
     public String getError(){
         return txtError.getText();
+    }
+
+    public String getUsernamePlaceholder(){
+        return userNamePlaceholder.getDomAttribute("placeholder");
+    }
+    public String getPasswordPlaceholder(){
+        return passwordPlaceholder.getDomAttribute("placeholder");
     }
 }

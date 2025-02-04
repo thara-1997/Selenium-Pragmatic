@@ -8,7 +8,7 @@ import org.openqa.selenium.support.PageFactory;
 public class ProductListWithPageFactoryPage {
 
     @FindBy(css = "[data-test='title']")
-    WebElement title;
+    private WebElement title;
 
     private final WebDriver driver;
      public ProductListWithPageFactoryPage(WebDriver driver){
