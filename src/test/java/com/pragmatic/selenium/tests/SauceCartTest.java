@@ -3,15 +3,13 @@ package com.pragmatic.selenium.tests;
 import com.pragmatic.selenium.pages.SauceCartPage;
 
 import com.pragmatic.selenium.pages.SauceProductListPage;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class SauceCartTest extends BaseClass{
+public class SauceCartTest extends SauceTestBase {
     @Test
     public void testVerifyCorrectProductDisplaying() {
         SauceProductListPage sauceProductListPage = new SauceProductListPage(driver);

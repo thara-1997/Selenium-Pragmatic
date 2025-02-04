@@ -8,7 +8,7 @@ import org.testng.annotations.Test;
 import java.util.Arrays;
 import java.util.List;
 
-public class SauceCheckoutTest extends BaseClass {
+public class SauceCheckoutTest extends SauceTestBase {
 
     public void addProducts(){
         SauceProductListPage sauceProductListPage = new SauceProductListPage(driver);

@@ -11,11 +11,11 @@ import java.util.List;
 public class SauceCartPage {
     private final WebDriver driver;
 
-     By byItemDescription = By.xpath("//div[@class='inventory_item_desc']");
-     By byCartItems = By.xpath("//div[@class='inventory_item_name']");
-     By byRemoveBackPack = By.xpath("//button[@id='remove-sauce-labs-backpack']");
-     By byContinueBtn = By.xpath("//button[@id='continue-shopping']");
-     By byCheckoutBtn = By.xpath("//button[@id='checkout']");
+    private final By byItemDescription = By.xpath("//div[@class='inventory_item_desc']");
+    private final By byCartItems = By.xpath("//div[@class='inventory_item_name']");
+    private final By byRemoveBackPack = By.xpath("//button[@id='remove-sauce-labs-backpack']");
+    private final By byContinueBtn = By.xpath("//button[@id='continue-shopping']");
+    private final By byCheckoutBtn = By.xpath("//button[@id='checkout']");
 
     public SauceCartPage(WebDriver driver){
         this.driver = driver;

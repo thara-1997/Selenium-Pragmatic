@@ -2,14 +2,11 @@ package com.pragmatic.selenium.tests;
 
 import com.pragmatic.selenium.pages.SauceProductListPage;
 import com.pragmatic.selenium.pages.SauceProductPage;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import java.util.List;
-
-public class SauceProductListTest extends BaseClass{
+public class SauceProductListTest extends SauceTestBase {
 
     @Test
     public void testVerifyProductPage() {

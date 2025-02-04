@@ -11,6 +11,7 @@ import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 public class SauceLoginTest {
     WebDriver driver;
@@ -25,27 +26,27 @@ public class SauceLoginTest {
         driver.quit();
     }
     @Test
-    public void testLoginWithValidCredentials(){
+    public void testVerifyLoginWithValidCredentials(){
         SauceLoginPage loginPage = new SauceLoginPage(driver);
         SauceProductListPage sauceProductListPage = new SauceProductListPage(driver);
         loginPage.typeUserName("standard_user").typePassword("secret_sauce").clickLogin();
         Assert.assertEquals(sauceProductListPage.getTitle(),"Products","Product text not meet");
     }
     @Test(dataProvider = "login-credentials",dataProviderClass = DataProviderSauceLabs.class,description = "verifyInvalidLogin")
-    public void testLoginWithInvalidCredentials(String username, String password, String expectedError){
+    public void testVerifyLoginWithInvalidCredentials(String username, String password, String expectedError){
         SauceLoginPage loginPage = new SauceLoginPage(driver);
         loginPage.typeUserName(username).typePassword(password).clickLogin();
         Assert.assertEquals(loginPage.getError(), expectedError,"Error message is not matching");
     }
     @Test
-    public void testLoginWithLockedOutUserCredentials() {
+    public void testVerifyLoginWithLockedOutUserCredentials() {
         SauceLoginPage sauceLoginPage = new SauceLoginPage(driver);
         sauceLoginPage.typeUserName("locked_out_user").typePassword("secret_sauce").clickLogin();
         Assert.assertEquals(sauceLoginPage.getError(),"Epic sadface: Sorry, this user has been locked out.","Error Message is incorrect" );
     }
 
     @Test
-    public void testLoginWithPerformanceGlitchUser() {
+    public void testVerifyLoginWithPerformanceGlitchUser() {
         SauceLoginPage sauceLoginPage = new SauceLoginPage(driver);
         SauceProductListPage sauceProductListPage = new SauceProductListPage(driver);
         sauceLoginPage.typeUserName("performance_glitch_user").typePassword("secret_sauce").clickLogin();
@@ -56,8 +57,12 @@ public class SauceLoginTest {
     public void testVerifyPlaceholderOfUserAndPassword() {
 
         SauceLoginPage sauceLoginPage = new SauceLoginPage(driver);
-        Assert.assertEquals(sauceLoginPage.getUsernamePlaceholder(),"Username", "Placeholder is not matching");
-        Assert.assertEquals(sauceLoginPage.getPasswordPlaceHolder(), "Password", "Placeholder value is not matching");
+
+        SoftAssert softAssert =new SoftAssert();
+
+        softAssert.assertEquals(sauceLoginPage.getUsernamePlaceholder(),"Username", "Placeholder is not matching");
+        softAssert.assertEquals(sauceLoginPage.getPasswordPlaceHolder(), "Password", "Placeholder value is not matching");
+        softAssert.assertAll();
     }
 
 

@@ -5,8 +5,8 @@ import org.openqa.selenium.WebDriver;
 
 public class SauceProductPage {
     private final WebDriver driver;
-    By byProductName = By.xpath("//div[normalize-space()='Sauce Labs Backpack']");
-    By byProductPrice = By.xpath("//div[@class='inventory_details_price']");
+    private final By byProductName = By.xpath("//div[normalize-space()='Sauce Labs Backpack']");
+    private final By byProductPrice = By.xpath("//div[@class='inventory_details_price']");
 
     public SauceProductPage(WebDriver driver){
         this.driver = driver;

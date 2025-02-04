@@ -6,12 +6,12 @@ import org.openqa.selenium.WebDriver;
 
 public class SauceLoginPage {
     private final WebDriver driver;
-    By byUserName = By.id("user-name");
-    By byPassword = By.id("password");
-    By byLoginButton = By.id("login-button"); 
-    By byError = By.cssSelector("h3[data-test='error']");
-    By byUserNamePlaceholder = By.id("user-name");
-    By byPasswordPlaceholder = By.id("password");
+    private final By byUserName = By.id("user-name");
+    private final By byPassword = By.id("password");
+    private final By byLoginButton = By.id("login-button");
+    private final By byError = By.cssSelector("h3[data-test='error']");
+    private final By byUserNamePlaceholder = By.id("user-name");
+    private final By byPasswordPlaceholder = By.id("password");
 
     public SauceLoginPage(WebDriver driver){
         this.driver = driver;
@@ -48,10 +48,10 @@ public class SauceLoginPage {
 
 
     public String getUsernamePlaceholder(){
-        return  driver.findElement(byUserNamePlaceholder).getAttribute("placeholder");
+        return  driver.findElement(byUserNamePlaceholder).getDomAttribute("placeholder");
     }
 
     public String getPasswordPlaceHolder(){
-        return driver.findElement(byPasswordPlaceholder).getAttribute("placeholder");
+        return driver.findElement(byPasswordPlaceholder).getDomAttribute("placeholder");
     }
 }

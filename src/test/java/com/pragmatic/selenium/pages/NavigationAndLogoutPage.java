@@ -10,11 +10,11 @@ import java.time.Duration;
 
 public class NavigationAndLogoutPage {
     private final WebDriver driver;
-    By byBurgerMenu = By.xpath("//button[@id='react-burger-menu-btn']");
-    By byMenuItem = By.xpath("//div[@class='bm-menu-wrap']");
-    By byLogout = By.id("logout_sidebar_link");
-    By byAllItems = By.xpath("//a[@id='inventory_sidebar_link']");
-    By byAbout = By.xpath("//a[@id='about_sidebar_link']");
+    private final By byBurgerMenu = By.xpath("//button[@id='react-burger-menu-btn']");
+    private final By byMenuItem = By.xpath("//div[@class='bm-menu-wrap']");
+    private final By byLogout = By.id("logout_sidebar_link");
+    private final By byAllItems = By.xpath("//a[@id='inventory_sidebar_link']");
+    private final By byAbout = By.xpath("//a[@id='about_sidebar_link']");
 
     public NavigationAndLogoutPage(WebDriver driver){
         this.driver = driver;

@@ -6,22 +6,24 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
-public class BaseClass {
+public class SauceTestBase {
     WebDriver driver;
     @BeforeMethod
     public void beforeMethod(){
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.get("https://www.saucedemo.com/");
-        testLoginWithValidCredentials();
+        login();
     }
-    public void testLoginWithValidCredentials(){
+    public void login(){
         SauceLoginPage loginPage = new SauceLoginPage(driver);
         loginPage.typeUserName("standard_user").typePassword("secret_sauce").clickLogin();
     }
 
     @AfterMethod
-    public void afterMethod(){
-        driver.quit();
+    public void afterMethod() {
+        if (driver != null) {
+            driver.quit();
+        }
     }
 }

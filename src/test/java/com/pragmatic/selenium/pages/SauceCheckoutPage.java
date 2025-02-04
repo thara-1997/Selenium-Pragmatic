@@ -8,12 +8,12 @@ import java.util.List;
 
 public class SauceCheckoutPage {
     private final WebDriver driver;
-    By byFirstName = By.xpath("//input[@id='first-name']");
-    By byLastName = By.xpath("//input[@id='last-name']");
-    By byPostalCode = By.xpath("//input[@id='postal-code']");
-    By byContinueBTN = By.xpath("//input[@id='continue']");
-    By byErrorMessage = By.xpath("//div[@class='error-message-container error']");
-    By byCancelBtn = By.xpath("//button[@id='cancel']");
+    private final By byFirstName = By.xpath("//input[@id='first-name']");
+    private final By byLastName = By.xpath("//input[@id='last-name']");
+    private final By byPostalCode = By.xpath("//input[@id='postal-code']");
+    private final By byContinueBTN = By.xpath("//input[@id='continue']");
+    private final By byErrorMessage = By.xpath("//div[@class='error-message-container error']");
+    private final By byCancelBtn = By.xpath("//button[@id='cancel']");
 
     public SauceCheckoutPage(WebDriver driver){
         this.driver = driver;
