@@ -1,22 +1,24 @@
-package TestNG;
+package testNG;
 
 import org.testng.annotations.Test;
 
-public class TestNGDependOnMethod {
-    @Test
+public class TestNGPriorityTest {
+
+    @Test(priority =0)
     public void testMethod1(){
         System.out.println("TestNGAnnotationTest.PriorityOne");
     }
-    @Test(dependsOnMethods = {"testMethod3", "testMethod4"})
+    @Test(priority = 1)
     public void testMethod2(){
         System.out.println("TestNGAnnotationTest.PriorityTwo");
     }
-    @Test
+    @Test(priority = 2)
     public void testMethod3(){
         System.out.println("TestNGAnnotationTest.PriorityThree");
     }
-    @Test
+    @Test(priority = 3)
     public void testMethod4(){
         System.out.println("TestNGAnnotationTest.PriorityFour");
     }
+
 }
