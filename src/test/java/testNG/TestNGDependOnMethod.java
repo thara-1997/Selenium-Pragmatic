@@ -16,7 +16,7 @@ public class TestNGDependOnMethod {
     public void testMethod2(){
         System.out.println("TestNGAnnotationTest.PriorityTwo");
     }
-    @Test
+    @Test(groups = {"regression"})
     public void testMethod3(){
         System.out.println("TestNGAnnotationTest.PriorityThree");
     }
