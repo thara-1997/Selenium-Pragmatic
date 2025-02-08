@@ -16,7 +16,7 @@ WebDriver driver;
         driver.get("https://www.saucedemo.com/");
     }
 
-    @Test
+    @Test(groups = {"smoke"})
     public void testValidLoginCredentials(){
 
         driver.findElement(By.id("user-name")).sendKeys("standard_user");
@@ -27,7 +27,7 @@ WebDriver driver;
         Assert.assertEquals(errorMessage,"Products","Product text not meet");
     }
 
-    @Test
+    @Test(groups = {"regression"})
     public void loginWithInvalidPassword() {
         driver.findElement(By.id("user-name")).sendKeys("standard_user");
         driver.findElement(By.id("password")).sendKeys("abcd");

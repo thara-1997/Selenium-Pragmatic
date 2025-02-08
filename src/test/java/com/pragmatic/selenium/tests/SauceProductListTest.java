@@ -42,7 +42,7 @@ public class SauceProductListTest extends SauceTestBase {
         }
     }
 
-    @Test
+    @Test(groups = {"sanity"})
     public void testFilterProductsAtoZ(){
         SauceProductListPage sauceProductListPage = new SauceProductListPage(driver);
         sauceProductListPage.selectFilter("az");

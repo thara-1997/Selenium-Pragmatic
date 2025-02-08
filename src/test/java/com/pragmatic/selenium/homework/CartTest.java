@@ -39,7 +39,7 @@ public class CartTest {
         driver.findElement(By.xpath("//a[@class='shopping_cart_link']")).click();
     }
 
-    @Test
+    @Test(groups = {"regression","smoke"})
     public void testVerifyCorrectProductDisplaying() {
 
         //the method that use to locate elements when using complex xpath
@@ -57,7 +57,7 @@ public class CartTest {
         Assert.assertEquals(itemPrice, "$29.99", "Item Price is not matching");
     }
 
-    @Test
+    @Test(groups = {"regression"})
     public void testVerifyMultipleProductsInCart() {
         addingItemsToCart();
 
@@ -74,7 +74,7 @@ public class CartTest {
         }
     }
 
-    @Test
+    @Test(groups = {"smoke"})
     public void testVerifyRemoveCartItemFunctionality(){
         addingItemsToCart();
         driver.findElement(By.xpath("//button[@id='remove-sauce-labs-backpack']")).click();

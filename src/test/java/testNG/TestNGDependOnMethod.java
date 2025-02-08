@@ -1,10 +1,15 @@
 package testNG;
 
+import org.testng.annotations.Optional;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 public class TestNGDependOnMethod {
     @Test
-    public void testMethod1(){
+    @Parameters({"browser","headless"})
+    public void testMethod1(@Optional("chrome") String browser, @Optional("false") String headless){
+        System.out.println("browser: " +browser);
+        System.out.println("headless = " +headless);
         System.out.println("TestNGAnnotationTest.PriorityOne");
     }
     @Test(dependsOnMethods = {"testMethod3", "testMethod4"})
