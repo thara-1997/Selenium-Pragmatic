@@ -51,8 +51,6 @@ public class ProductListPageTest {
             Assert.assertEquals(actualName,expectedName,"Product name mismatch for " + expectedName);
             Assert.assertEquals(actualPrice,expectedPrice,"Product price mismatch for " + expectedName);
         }
-
-
     }
 
     @Test
@@ -147,4 +145,8 @@ public class ProductListPageTest {
             previousValue = currentValue;
         }
     }
+
+
+
+
 }

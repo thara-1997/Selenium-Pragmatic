@@ -4,16 +4,22 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 public class LoginTest {
-WebDriver driver;
-    @BeforeMethod
-    public void openTestLink(){
+public WebDriver driver;
+    @BeforeMethod(groups = {"regression", "smoke"})
+    public void beforeMethod(){
+        System.out.println("driver is initialized " +driver);
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.get("https://www.saucedemo.com/");
+    }
+    @AfterMethod(groups = {"regression","smoke"})
+    public void afterMethod(){
+        driver.quit();
     }
 
     @Test(groups = {"smoke"})
@@ -74,10 +80,10 @@ WebDriver driver;
 
     @Test
     public void testVerifyPlaceholderOfUserAndPassword() {
-        String placeholderUsername=driver.findElement(By.id("user-name")).getAttribute("placeholder");
+        String placeholderUsername=driver.findElement(By.id("user-name")).getDomAttribute("placeholder");
         Assert.assertEquals(placeholderUsername,"Username", "Placeholder is not matching");
 
-        String placeholderPassword = driver.findElement(By.id("password")).getAttribute("placeholder");
+        String placeholderPassword = driver.findElement(By.id("password")).getDomAttribute("placeholder");
         Assert.assertEquals(placeholderPassword, "Password", "Placeholder value is not matching");
     }
 

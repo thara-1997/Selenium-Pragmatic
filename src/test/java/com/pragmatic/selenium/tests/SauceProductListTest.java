@@ -1,10 +1,16 @@
 package com.pragmatic.selenium.tests;
 
+import com.pragmatic.selenium.homework.DataProviderCheckoutProcess;
 import com.pragmatic.selenium.pages.SauceProductListPage;
 import com.pragmatic.selenium.pages.SauceProductPage;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Stream;
 
 public class SauceProductListTest extends SauceTestBase {
 
@@ -98,4 +104,63 @@ public class SauceProductListTest extends SauceTestBase {
             previousValue = currentValue;
         }
     }
+
+    @Test
+    public void testStreamForEachForExample(){
+        List<WebElement> cartButtons = driver.findElements(By.cssSelector("[data-test = 'inventory-item']"));
+        cartButtons.stream().forEach(SauceProductListTest::clickButton);
+        SauceProductListPage sauceProductListPage = new SauceProductListPage(driver);
+        Assert.assertEquals(sauceProductListPage.getCartNum(), "6","Cart icon num is not matching");
+    }
+
+    public static void clickButton(WebElement webElement){
+        webElement.findElement(By.tagName("button")).click();
+    }
+    @Test
+    public void testStreamFilterExample(){
+        List<WebElement> cartButtons = driver.findElements(By.cssSelector("[data-test = 'inventory-item']"));
+        long productStartsWithSauce = cartButtons.stream().filter(webElement -> webElement.findElement(By.cssSelector("[data-test = 'inventory-item-name']")).getText().startsWith("Sauce"))
+                .count();
+        Assert.assertEquals(productStartsWithSauce, 5);
+    }
+
+    @Test
+    public void testStreamDisplayDetailsOfEachItem(){
+        List<WebElement> inventoryList = driver.findElements(By.cssSelector("[data-test = 'inventory-item']"));
+        inventoryList.stream()
+                .filter(webElement -> webElement.findElement(By.cssSelector("[data-test = 'inventory-item-name']")).getText().startsWith("Sauce"))
+                .map(webElement -> webElement.findElement(By.cssSelector("[data-test = 'inventory-item-name']")).getText())
+                .forEach(System.out::println);
+    }
+
+    @Test
+    public void testStreamSortingItemsInDescendingOrder(){
+        List<WebElement> inventoryList = driver.findElements(By.cssSelector("[data-test = 'inventory-item']"));
+        inventoryList.stream()
+                .filter(webElement -> webElement.findElement(By.cssSelector("[data-test = 'inventory-item-name']")).getText().startsWith("Sauce"))
+                .map(webElement -> webElement.findElement(By.cssSelector("[data-test = 'inventory-item-name']")).getText())
+                .sorted(Collections.reverseOrder())
+                .forEach(System.out::println);
+    }
+
+    @Test(dataProviderClass = DataProviderCheckoutProcess.class, dataProvider = "productData")
+    public void testAllProducts(String expectedProductName, String expectedDescription, String expectedPrice, String expectedAlt, String expectedImage){
+        List<WebElement> inventoryList = driver.findElements(By.cssSelector("[data-test = 'inventory-item']"));
+//        Stream<WebElement> product = inventoryList.stream()
+//                .filter(webElement -> webElement.findElement(By.cssSelector("[data-test = 'inventory-item-name']")).getText().equals(expectedProductName));
+//        Assert.assertEquals(product.count(), 1, "Product" +expectedProductName+  "does not exist");
+
+        long productCountWithGivenPriceAndName = inventoryList.stream()
+                .filter(webElement -> isProductExists(expectedProductName,webElement))
+                .filter(webElement -> isPriceMatches(expectedPrice,webElement)).count();
+        Assert.assertEquals(productCountWithGivenPriceAndName, 1, "Product price does not match");
+    }
+
+    private static boolean isPriceMatches(String expectedPrice, WebElement webElement){
+        return webElement.findElement(By.cssSelector("[data-test = 'inventory-item-price']")).getText().equals(expectedPrice);
+    }
+    private static boolean isProductExists(String expectedProductName, WebElement webElement){
+        return webElement.findElement(By.cssSelector("[data-test = 'inventory-item-name']")).getText().equals(expectedProductName);
+    }
+    //2.15
 }

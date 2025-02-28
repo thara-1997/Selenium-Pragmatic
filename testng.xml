@@ -1,52 +1,85 @@
-<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
- <suite name="regression-tests">
-    <parameter name="browser" value="firefox"/>
-
-    <test name="test-1-packages" enabled="true">
-        <parameter name="browser" value="chrome"/>
-        <groups>
-            <run>
-                <include name="regression"/>
-            </run>
-        </groups>
-        <packages>
-            <package name="testNG"/>
-<!--            <package name="com.pragmatic.selenium.tests"/>-->
-        </packages>
-    </test>
-
-    <test name="test-2-classes" enabled="false">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="All Test Suite">
+    <test verbose="2" preserve-order="true" name="C:/Selenium-Pragmetic/selenium-b1-2025">
         <classes>
-            <class name="com.pragmatic.selenium.tests.SauceLoginTest"/>
-            <class name="com.pragmatic.selenium.tests.SauceNavigationAndLogoutTest"/>
-        </classes>
-    </test>
-    
-    <test name="test-3-methods" enabled="false">
-        <classes>
-            <class name="com.pragmatic.selenium.tests.SauceProductListTest">
-              <methods>
-                  <include name="testVerifyProductPage"/>
-                  <include name="testClickAddToCartButtonForEachProduct"/>
-                  <include name="testRemoveButtonFunctionality"/>
-              </methods>
-            </class>
-            <class name="com.pragmatic.selenium.tests.SauceLoginTest">
+            <class name="com.pragmatic.selenium.BasicAuthTest">
                 <methods>
-                    <exclude name="testVerifyPlaceholderOfUserAndPassword"/>
+                    <include name="testBasicAuth"/>
                 </methods>
             </class>
-        </classes>
-    </test>
-
-    <test name="test-4-grouping" enabled="true">
-        <groups>
-            <run>
-                <include name="regression"/>
-            </run>
-        </groups>
-        <classes>
-            <class name="com.pragmatic.selenium.homework.LoginTest"/>
-        </classes>
-    </test>
-</suite>
+            <class name="com.pragmatic.selenium.CheckoutFlowTest">
+                <methods><include name="testCheckout"/>
+                    <include name="testVerifyCheckout"/>
+                </methods>
+            </class>
+            <class name="com.pragmatic.selenium.CrossBrowserTest">
+                <methods>
+                    <include name="testChromeBrowser"/>
+                    <include name="testChromeBrowserHeadless"/>
+                    <include name="testFirefoxBrowser"/>
+                    <include name="testFirefoxBrowserHeadless"/>
+                    <include name="testEdgeBrowser"/>
+                    <include name="testEdgeBrowserHeadless"/>
+                </methods>
+            </class>
+            <class name="com.pragmatic.selenium.DataDrivenTest">
+                <methods>
+                    <include name="testValidLoginCredentials"/>
+                    <include name="loginWithBlankCredentials"/>
+                    <include name="loginWithBlankUsername"/>
+                    <include name="loginWithBlankPassword"/>
+                    <include name="loginWithInvalidCredentials"/>
+                    <include name="loginWithInvalidPassword"/>
+                    <include name="loginWithInvalidUsername"/>
+                    <include name="testInvalidUserLogin"/>
+                </methods>
+            </class>
+            <class name="com.pragmatic.selenium.DisableSavePasswordPopupTest">
+                <methods>
+                    <include name="testDisableBrowserPopup"/>
+                </methods>
+            </class>
+            <class name="com.pragmatic.selenium.DragAndDropTest">
+                <methods><include name="testDragAndDrop"/>
+                </methods>
+            </class>
+            <class name="com.pragmatic.selenium.EasyToSyncButtonTest">
+                <methods>
+                    <include name="testEasyToSyncButtons"/>
+                    <include name="testHardToSyncButtons"/>
+                </methods>
+            </class>
+            <class name="com.pragmatic.selenium.KeyTest">
+                <methods>
+                    <include name="testKeysOne"/>
+                    <include name="testKeysTwoCopyPaste"/>
+                </methods>
+            </class>
+            <class name="com.pragmatic.selenium.Log4jLoggingTest">
+                <methods><include name="testLog4jLogging"/>
+                </methods></class><class name="com.pragmatic.selenium.MethodTest">
+            <methods>
+                <include name="testTitle"/>
+                <include name="testPageSource"/>
+                <include name="testNavigation"/>
+                <include name="testFindElements"/>
+                <include name="getCurrentURL"/>
+            </methods>
+        </class>
+            <class name="com.pragmatic.selenium.SyncHoleTest">
+                <methods>
+                    <include name="testClickingAboutLinkWithWaitForElementTobeClickableWithWebElement"/>
+                    <include name="testClickingAboutLinkWithWaitForElementTobeVisible"/>
+                    <include name="testClickingAboutLinkWithWaitForElementTobeClickable"/>
+                </methods></class><class name="com.pragmatic.selenium.homework.CartTest">
+            <methods><include name="testVerifyContinueShoppingButtonFunctionality"/>
+                <include name="testVerifyCheckoutFunctionality"/>
+            </methods>
+        </class>
+            <class name="com.pragmatic.selenium.homework.CheckoutProcessTest">
+                <methods>
+                    <include name="testVerifyInvalidCheckoutInformationFunctionality"/>
+                    <include name="testVerifyValidCheckoutInformationFunctionality"/>
+                    <include name="testVerifyOrderSummaryPage"/>
+                    <include name="testVerifyFinishButtonFunctionality"/><include name="testVerifyCancelButtonFunctionality"/></methods></class><class name="com.pragmatic.selenium.homework.LoginTest"><methods><include name="loginWithInvalidUsername"/><include name="loginWithBlankUsername"/><include name="testLoginWithLockedOutUserCredentials"/><include name="testLoginWithPerformanceGlitchUser"/><include name="testVerifyPlaceholderOfUserAndPassword"/></methods></class><class name="com.pragmatic.selenium.homework.NavigationAndLogOutTest"><methods><include name="testMenuFunctionality"/><include name="testVerifyLogoutFunctionality"/><include name="testVerifyAllItems"/><include name="testVerifyAboutOption"/></methods></class><class name="com.pragmatic.selenium.homework.ProductListPageTest"><methods><include name="testVerifyAllProductsAreDisplayingInCorrectNameAndPrice"/><include name="testVerifyProductPage"/><include name="testClickAddToCartButtonForEachProduct"/><include name="testRemoveButtonFunctionality"/><include name="testFilterProductsAtoZ"/><include name="testFilterProductsZtoA"/><include name="testFilterPriceLowToHigh"/><include name="testFilterPriceHighToLow"/></methods></class><class name="com.pragmatic.selenium.pageFactoryTests.SauceLoginWithPageFactoryTest"><methods><include name="testVerifyLoginWithValidCredentials"/><include name="testVerifyLoginWithInvalidCredentials"/><include name="testVerifyLoginWithLockedOutUserCredentials"/><include name="testVerifyLoginWithPerformanceGlitchUser"/><include name="testVerifyPlaceholderOfUserAndPassword"/></methods></class><class name="com.pragmatic.selenium.tests.SauceCartTest"><methods><include name="testVerifyCorrectProductDisplaying"/><include name="testVerifyMultipleProductsInCart"/><include name="testVerifyRemoveCartItemFunctionality"/><include name="testVerifyContinueShoppingButtonFunctionality"/><include name="testVerifyCheckoutFunctionality"/></methods></class><class name="com.pragmatic.selenium.tests.SauceCheckoutTest"><methods><include name="testVerifyInvalidCheckoutInformationFunctionality"/><include name="testVerifyValidCheckoutInformationFunctionality"/><include name="testVerifyOrderSummaryPage"/><include name="testVerifyFinishButtonFunctionality"/><include name="testVerifyCancelButtonFunctionality"/></methods></class><class name="com.pragmatic.selenium.tests.SauceLoginTest"><methods><include name="testVerifyLoginWithValidCredentials"/><include name="testVerifyLoginWithInvalidCredentials"/><include name="testVerifyLoginWithLockedOutUserCredentials"/><include name="testVerifyLoginWithPerformanceGlitchUser"/><include name="testVerifyPlaceholderOfUserAndPassword"/></methods></class><class name="com.pragmatic.selenium.tests.SauceNavigationAndLogoutTest"><methods><include name="testMenuFunctionality"/><include name="testVerifyLogoutFunctionality"/><include name="testVerifyAllItems"/><include name="testVerifyAboutOption"/></methods></class><class name="com.pragmatic.selenium.tests.SauceProductListTest"><methods><include name="testVerifyProductPage"/><include name="testClickAddToCartButtonForEachProduct"/><include name="testRemoveButtonFunctionality"/><include name="testFilterProductsZtoA"/><include name="testFilterPriceLowToHigh"/><include name="testFilterPriceHighToLow"/></methods></class><class name="testNG.TestNGDependOnMethod"><methods><include name="testMethod4"/></methods></class><class name="testNG.TestNGPriorityTest"><methods><include name="testMethod1"/><include name="testMethod2"/><include name="testMethod3"/><include name="testMethod4"/></methods></class></classes></test></suite>

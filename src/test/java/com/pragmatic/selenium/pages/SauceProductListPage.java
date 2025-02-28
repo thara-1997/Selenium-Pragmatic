@@ -10,21 +10,21 @@ import java.util.List;
 public class SauceProductListPage {
     private final WebDriver driver;
 
-    By byTitle = By.cssSelector("[data-test='title']");
+    private final By byTitle = By.cssSelector("[data-test='title']");
 
-    By bySauceLabsBackPackCartBtn = By.xpath("//button[@id='add-to-cart-sauce-labs-backpack']");
-    By bySauceLabsBikeLightBtn = By.xpath("//button[@id='add-to-cart-sauce-labs-bike-light']");
-    By byClickCart = By.xpath("//a[@class='shopping_cart_link']");
-    By bySauceLabsBackPack = By.xpath("//div[normalize-space()='Sauce Labs Backpack']");
-    By byCartBtn = By.xpath("//button[@class='btn btn_primary btn_small btn_inventory ']");
-    By byCartIconNum = By.xpath("//span[@class='shopping_cart_badge']");
-    By byRemoveBtn = By.xpath("//button[@class='btn btn_secondary btn_small btn_inventory ']");
+    private final By bySauceLabsBackPackCartBtn = By.xpath("//button[@id='add-to-cart-sauce-labs-backpack']");
+    private final By bySauceLabsBikeLightBtn = By.xpath("//button[@id='add-to-cart-sauce-labs-bike-light']");
+    private final By byClickCart = By.xpath("//a[@class='shopping_cart_link']");
+    private final By bySauceLabsBackPack = By.xpath("//div[normalize-space()='Sauce Labs Backpack']");
+    private final By byCartBtn = By.xpath("//button[@class='btn btn_primary btn_small btn_inventory ']");
+    private final By byCartIconNum = By.xpath("//span[@class='shopping_cart_badge']");
+    private final By byRemoveBtn = By.xpath("//button[@class='btn btn_secondary btn_small btn_inventory ']");
 
-    By byAllProducts = By.xpath("//div[@class='inventory_item_description']");
+    private final By byAllProducts = By.xpath("//div[@class='inventory_item_description']");
 
-    By bySelectFilter = By.xpath("//select[@class='product_sort_container']");
-    By byProductList = By.xpath("//div[@class = 'inventory_item']");
-    By byPriceList = By.xpath("//div[@class = 'inventory_item_price']");
+    private final By bySelectFilter = By.xpath("//select[@class='product_sort_container']");
+    private final By byProductList = By.xpath("//div[@class = 'inventory_item']");
+    private final By byPriceList = By.xpath("//div[@class = 'inventory_item_price']");
 
     public SauceProductListPage(WebDriver driver){
         this.driver = driver;

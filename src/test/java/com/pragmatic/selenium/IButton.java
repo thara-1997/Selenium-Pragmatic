@@ -1,6 +1,9 @@
 package com.pragmatic.selenium;
 
+import org.openqa.selenium.WebDriver;
+
 public interface IButton {
+
     void click();
 
     boolean isEnabled();
@@ -8,4 +11,6 @@ public interface IButton {
     boolean isVisible();
 
     String getText();
+
+    void hover(WebDriver driver);
 }
