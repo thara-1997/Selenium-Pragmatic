@@ -162,5 +162,5 @@ public class SauceProductListTest extends SauceTestBase {
     private static boolean isProductExists(String expectedProductName, WebElement webElement){
         return webElement.findElement(By.cssSelector("[data-test = 'inventory-item-name']")).getText().equals(expectedProductName);
     }
-    //2.15
+    //2.31
 }
